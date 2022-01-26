@@ -27,7 +27,6 @@ const User = mongoose.model("User", UserSchema);
 
 // Defines the port the app will run on. Defaults to 8080, but can be
 // overridden when starting the server. For example:
-//
 //   PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
@@ -48,13 +47,12 @@ const authenticatedUser = (req, res, next) => {
 };
 
 // Add middlewares to enable cors and json body parsing
-
 app.use(cors());
 app.use(express.json());
 
 // Start defining your routes here
-app.get("/thoughts", authenticatedUser);
-app.get("/thoughts", (req, res) => {
+app.get("/forum", authenticatedUser);
+app.get("/forum", (req, res) => {
   res.send("Here are your thoughts");
 });
 

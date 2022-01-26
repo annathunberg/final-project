@@ -13,12 +13,14 @@
     "@babel/core": "^7.16.7",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.8",
+    "@reduxjs/toolkit": "^1.7.1",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "express": "^4.17.2",
     "mongoose": "^5.13.14",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "redux": "^4.1.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
