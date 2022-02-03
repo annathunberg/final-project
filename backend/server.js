@@ -3,19 +3,28 @@ import cors from "cors";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"; // ändra url här!!
+
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
+
+// Defines the port the app will run on. Defaults to 8080.
+const port = process.env.PORT || 8080;
+const app = express();
+
+///////// SCHEMAS HERE //////////
 
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
     required: true,
+    minlength: 4,
   },
   password: {
     type: String,
     required: true,
+    minlength: 8,
   },
   accessToken: {
     type: String,
@@ -23,15 +32,11 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
+///////// MODELS HERE //////////
+
 const User = mongoose.model("User", UserSchema);
 
-// Defines the port the app will run on. Defaults to 8080, but can be
-// overridden when starting the server. For example:
-//   PORT=9000 npm start
-const port = process.env.PORT || 8080;
-const app = express();
-
-const authenticatedUser = (req, res, next) => {
+const authenticatedUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
 
   try {
@@ -50,11 +55,14 @@ const authenticatedUser = (req, res, next) => {
 app.use(cors());
 app.use(express.json());
 
-// Start defining your routes here
+//////// ROUTES START HERE ///////
+
 app.get("/forum", authenticatedUser);
 app.get("/forum", (req, res) => {
   res.send("Here are your thoughts");
 });
+
+////// POST REQUESTS ///////
 
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body;

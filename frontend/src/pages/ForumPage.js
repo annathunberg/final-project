@@ -1,5 +1,5 @@
 import React from "react";
 
-export const Forum = () => {
+export const ForumPage = () => {
   return <div>hello forum</div>;
 };
