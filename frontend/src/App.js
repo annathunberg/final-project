@@ -8,9 +8,16 @@ import { LoginPage } from "./pages/LoginPage";
 import { ForumPage } from "./pages/ForumPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 
+import { user } from "./reducers/user";
+import { forumPosts } from "./reducers/forumPosts";
+import { ui } from "./reducers/ui";
+import { categories } from "./reducers/categories";
+
 const reducer = combineReducers({
   user: user.reducer,
-  thoughts: thoughts.reducer,
+  ui: ui.reducer,
+  forumPosts: forumPosts.reducer,
+  categories: categories.reducer,
 });
 
 const store = configureStore({ reducer });
