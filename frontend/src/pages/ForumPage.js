@@ -1,16 +1,23 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 import { API_URL } from "../utils/Constants";
 
+import { AddPost } from "../components/AddPost";
+import { ForumList } from "../components/ForumList";
 import { forumPosts } from "../reducers/forumPosts";
 import { user } from "../reducers/user";
 
+const ContentDiv = styled.main`
+  margin: 10px;
+`;
+
 export const ForumPage = () => {
   const forumPostsItems = useSelector((store) => store.forumPosts.items);
+  const categories = useSelector((store) => store.categories.items);
   const accessToken = useSelector((store) => store.user.accessToken);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -51,18 +58,17 @@ export const ForumPage = () => {
   };
 
   return (
-    <>
-      <div>
-        <h1>welcome to our forum</h1>
-        {forumPostsItems.map((item) => (
-          <div key={item._id}>{item.message}</div>
-        ))}
-      </div>
+    <ContentDiv>
+      <h1>welcome to our forum</h1>
+
+      <AddPost />
+      <ForumList />
+
       <div className="logout-btn-wrapper">
         <button className="logout-btn" onClick={logOutUser}>
           Log out
         </button>
       </div>
-    </>
+    </ContentDiv>
   );
 };
