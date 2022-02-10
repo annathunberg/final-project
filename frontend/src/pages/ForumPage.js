@@ -2,21 +2,20 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch, batch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
-import { API_URL } from "../utils/Constants";
-
 import { AddPost } from "../components/AddPost";
 import { ForumList } from "../components/ForumList";
-import { forumPosts } from "../reducers/forumPosts";
+import { Header } from "../components/Header";
+//import { forumPosts } from "../reducers/forumPosts";
 import { user } from "../reducers/user";
+import { forumPosts } from "../reducers/forumPosts";
+import { getPosts } from "../utils/postsApiUtil";
 
 const ContentDiv = styled.main`
   margin: 10px;
 `;
 
 export const ForumPage = () => {
-  const forumPostsItems = useSelector((store) => store.forumPosts.items);
-  const categories = useSelector((store) => store.categories.items);
+  //const forumPostsItems = useSelector((store) => store.forumPosts.items);
   const accessToken = useSelector((store) => store.user.accessToken);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,6 +23,8 @@ export const ForumPage = () => {
   useEffect(() => {
     if (!accessToken) {
       navigate("/login");
+    } else {
+      getPosts(dispatch);
     }
   }, [accessToken, navigate]);
 
@@ -35,7 +36,7 @@ export const ForumPage = () => {
       },
     };
 
-    fetch(API_URL("forumPosts"), options)
+    /*  fetch(API_URL("forumPosts"), options)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -45,30 +46,51 @@ export const ForumPage = () => {
           dispatch(forumPosts.actions.setItems([]));
           dispatch(forumPosts.actions.setError(data.response));
         }
-      });
+      }); */
   }, [accessToken, dispatch]);
 
   const logOutUser = () => {
     batch(() => {
       dispatch(user.actions.setUsername(null));
+      dispatch(user.actions.setUserId(null));
       dispatch(user.actions.setAccessToken(null));
 
-      localStorage.removeItem("user");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userId");
     });
   };
 
   return (
-    <ContentDiv>
-      <h1>welcome to our forum</h1>
+    <>
+      <Header />
+      <ContentDiv>
+        <AddPost />
+        <ForumList />
 
-      <AddPost />
-      <ForumList />
-
-      <div className="logout-btn-wrapper">
-        <button className="logout-btn" onClick={logOutUser}>
-          Log out
-        </button>
-      </div>
-    </ContentDiv>
+        <LogoutWrapper>
+          <LogoutBtn onClick={logOutUser}>Log out</LogoutBtn>
+        </LogoutWrapper>
+      </ContentDiv>
+    </>
   );
 };
+
+const LogoutWrapper = styled.div`
+  display: flex;
+`;
+
+const LogoutBtn = styled.button`
+  width: fit-content;
+  padding: 8px 24px;
+  margin: 20px auto;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-block;
+  background: #fce3e4;
+  border-radius: 50px;
+  color: #0047ab;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid #0047ab;
+`;
