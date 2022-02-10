@@ -3,7 +3,7 @@ import { BrowserRouter, useNavigate } from "react-router-dom";
 
 export const ResourcesPage = () => {
   const navigate = useNavigate();
-  useEffect(() => navigate("/forum")); //ska vi ha detta?
+  useEffect(() => navigate("/forum"));
   return (
     <div>
       <h1>Resources</h1>

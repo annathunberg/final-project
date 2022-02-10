@@ -105,7 +105,7 @@ export const LoginPage = () => {
           </SwitchPageLink>
         ) : (
           <SwitchPageLink onClick={() => setMode("signin")}>
-            Already have an account? Click here
+            Already have an account? Click here to login
           </SwitchPageLink>
         )}
       </MainContainer>
@@ -119,10 +119,11 @@ const MainContainer = styled.div`
   align-items: center;
   margin: 50px auto;
   background-color: #fafafa;
-  border-radius: 10px;
+  border-radius: 5px;
   width: 300px;
   height: 400px;
   position: relative;
+  /* border: 1px solid #0047ab; */
 
   @media (min-width: 700px) {
     width: 500px;
@@ -152,14 +153,13 @@ const SubmitButton = styled.button`
   font-weight: 700;
   display: inline-block;
   background: #fce3e4;
-  padding: 5px 10px;
+  padding: 10px 10px;
   border-radius: 50px;
   color: #0047ab;
   text-decoration: none;
   text-transform: uppercase;
   border: 1px solid #0047ab;
   margin: 15px auto;
-  padding: 8px 0;
 `;
 
 const ActionTitle = styled.p`

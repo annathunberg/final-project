@@ -11,7 +11,7 @@ export const Header = () => {
 
 const HeaderDiv = styled.div`
   margin: auto;
-  width: fit-content;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -28,6 +28,7 @@ const HeaderText = styled.h1`
   color: #0047ab;
   font-family: "Londrina Shadow", cursive;
   letter-spacing: 4px;
+  font-weight: 600;
   font-size: 34px;
 
   @media (min-width: 700px) {

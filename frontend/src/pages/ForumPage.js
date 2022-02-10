@@ -5,14 +5,9 @@ import styled from "styled-components";
 import { AddPost } from "../components/AddPost";
 import { ForumList } from "../components/ForumList";
 import { Header } from "../components/Header";
-//import { forumPosts } from "../reducers/forumPosts";
 import { user } from "../reducers/user";
 import { forumPosts } from "../reducers/forumPosts";
 import { getPosts } from "../utils/postsApiUtil";
-
-const ContentDiv = styled.main`
-  margin: 10px;
-`;
 
 export const ForumPage = () => {
   //const forumPostsItems = useSelector((store) => store.forumPosts.items);
@@ -35,18 +30,6 @@ export const ForumPage = () => {
         Authorization: accessToken,
       },
     };
-
-    /*  fetch(API_URL("forumPosts"), options)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          dispatch(forumPosts.actions.setItems(data.response));
-          dispatch(forumPosts.actions.setError(null));
-        } else {
-          dispatch(forumPosts.actions.setItems([]));
-          dispatch(forumPosts.actions.setError(data.response));
-        }
-      }); */
   }, [accessToken, dispatch]);
 
   const logOutUser = () => {
@@ -75,13 +58,17 @@ export const ForumPage = () => {
   );
 };
 
+const ContentDiv = styled.div`
+  margin: 10px;
+`;
+
 const LogoutWrapper = styled.div`
   display: flex;
 `;
 
 const LogoutBtn = styled.button`
   width: fit-content;
-  padding: 8px 24px;
+  padding: 5px 10px;
   margin: 20px auto;
   cursor: pointer;
   font-size: 14px;
