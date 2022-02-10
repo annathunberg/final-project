@@ -177,15 +177,18 @@ const ActionTitle = styled.p`
 
 const ErrorText = styled.p`
   font-weight: 700;
-  font-size: 16px;
+  font-size: 14px;
   margin: 10px 0;
   text-align: center;
+  color: #0047ab;
+  font-style: italic;
 `;
 
 const SwitchPageLink = styled.a`
   position: absolute;
   bottom: 28px;
   font-size: 16px;
+  font-weight: 600;
   text-align: center;
   color: #0047ab;
   cursor: pointer;
