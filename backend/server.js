@@ -27,8 +27,20 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model("User", UserSchema);
 
 const ForumPostSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
   message: {
     type: String,
+    required: true,
+  },
+  userId: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
     required: true,
   },
 });
@@ -136,6 +148,60 @@ app.post("/signin", async (req, res) => {
         success: false,
       });
     }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+});
+
+app.get("/posts", async (req, res) => {
+  try {
+    const posts = await ForumPost.find();
+
+    res.status(201).json({
+      response: {
+        posts,
+      },
+      success: true,
+    });
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+});
+
+app.post("/post/add", async (req, res) => {
+  const { title, message, userId } = req.body;
+
+  try {
+    const post = await new ForumPost({
+      message,
+      title,
+      userId,
+      createdAt: new Date(),
+    }).save();
+
+    res.status(201).json({
+      response: {
+        postId: post._id,
+      },
+      success: true,
+    });
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+});
+
+app.delete("/post/remove", async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    const post = await ForumPost.deleteOne({ _id: id });
+
+    res.status(201).json({
+      response: {
+        postId: post._id,
+      },
+      success: true,
+    });
   } catch (error) {
     res.status(400).json({ response: error, success: false });
   }
