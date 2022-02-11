@@ -76,15 +76,11 @@ const CommentSchema = new mongoose.Schema({
 
 const Comment = mongoose.model("CommentSchema", CommentSchema);
 
-// Defines the port the app will run on. Defaults to 8080, but can be
-// overridden when starting the server. For example:
-//
-//   PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
 
-// Add middlewares to enable cors and json body parsing
-// v1 - Allow all domains
+// middlewares to enable cors and json body parsing
+
 app.use(cors());
 
 app.use(express.json());
@@ -109,7 +105,7 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-// Start defining your routes here
+// Start routes here
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body;
 

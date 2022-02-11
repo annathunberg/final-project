@@ -68,7 +68,7 @@ export const LoginPage = () => {
             </div>
           ) : (
             <div className="sign-btn-container">
-              <ActionTitle>Create your account</ActionTitle>
+              <ActionTitle>Create an account</ActionTitle>
             </div>
           )}
         </BtnContainer>
@@ -123,7 +123,6 @@ const MainContainer = styled.div`
   width: 300px;
   height: 400px;
   position: relative;
-  /* border: 1px solid #0047ab; */
 
   @media (min-width: 700px) {
     width: 500px;
@@ -138,7 +137,6 @@ const BtnContainer = styled.div`
 const FormContainer = styled.div`
   width: 80%;
   margin: 0;
-  /* border: 1px solid yellow; */
 `;
 
 const Form = styled.form`
@@ -177,9 +175,11 @@ const ActionTitle = styled.p`
 
 const ErrorText = styled.p`
   font-weight: 700;
-  font-size: 16px;
+  font-size: 12px;
   margin: 10px 0;
+  color: #0047ab;
   text-align: center;
+  font-style: italic;
 `;
 
 const SwitchPageLink = styled.a`

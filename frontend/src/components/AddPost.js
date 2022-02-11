@@ -80,7 +80,7 @@ const StyledMainDiv = styled.div`
   border-radius: 3px;
   width: 80%;
   height: auto;
-  /* border: 1px solid #0047ab; */
+
   @media (min-width: 700px) {
     min-width: 60%;
     max-width: 70%;

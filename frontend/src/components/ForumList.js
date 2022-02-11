@@ -33,19 +33,20 @@ export const ForumList = () => {
       {items.map((post, index) => (
         <ContentDiv key={index}>
           <PostDiv>
-            <DateStamp>
-              <p>
-                Posted: {moment(post.createdAt).fromNow()} by {post.posterName}
-              </p>
-            </DateStamp>
-            <PostTitle>{post.title}</PostTitle>
-            <PostText>{post.message}</PostText>
-            {myUserId === post.userId && (
-              <DeleteBtn onClick={() => onDeletePost(dispatch, post._id)}>
-                Delete
-              </DeleteBtn>
-            )}
-
+            <PostWrapper>
+              <DateStamp>
+                <p>
+                  Posted {moment(post.createdAt).fromNow()} by {post.posterName}
+                </p>
+              </DateStamp>
+              <PostTitle>{post.title}</PostTitle>
+              <PostText>{post.message}</PostText>
+              {myUserId === post.userId && (
+                <DeleteBtn onClick={() => onDeletePost(dispatch, post._id)}>
+                  Delete
+                </DeleteBtn>
+              )}
+            </PostWrapper>
             <CommentCountText>
               <strong>{post.comments.length} comments</strong>
             </CommentCountText>
@@ -125,7 +126,7 @@ const ContentDiv = styled.div`
   width: 80%;
   padding: 10px;
   height: auto;
-  /* border: 1px solid #0047ab; */
+
   @media (min-width: 700px) {
     min-width: 60%;
     max-width: 70%;
@@ -136,11 +137,20 @@ const ContentDiv = styled.div`
   }
 `;
 
+const PostWrapper = styled.div`
+  background: #fce3e4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 const PostDiv = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 const DateStamp = styled.div`
@@ -178,8 +188,10 @@ const PostText = styled.p`
   font-size: 14px;
   margin-bottom: 15px;
   padding: 0 15px;
+  max-width: 80%;
   @media (min-width: 700px) {
     font-size: 14px;
+    max-width: 70%;
   }
 `;
 
@@ -201,11 +213,11 @@ const DeleteBtn = styled.button`
 
 const CommentCountText = styled.p`
   width: 80%;
-  background: #fce3e4;
   text-align: center;
   color: #0047ab;
-  font-size: 16px;
+  font-size: 12px;
   padding: 12px 0;
+  font-style: italic;
 `;
 
 const Comment = styled.div`
@@ -217,7 +229,7 @@ const Comment = styled.div`
   color: #0047ab;
   margin: 2px;
   padding: 12px 0;
-  background-color: #fce3e4;
+  border: 2px solid #fce3e4;
 `;
 
 const CommentText = styled.div`
@@ -236,7 +248,7 @@ const CommentInput = styled.input`
   flex-direction: column;
   margin: auto;
   height: 25px;
-  width: 50%;
+  width: 90%;
   border-radius: 3px;
   border: 1px solid #d5dcf9;
   padding: 5px 10px;
