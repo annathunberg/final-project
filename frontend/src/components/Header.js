@@ -17,7 +17,6 @@ const HeaderDiv = styled.div`
   align-items: center;
   justify-content: center;
   @media (min-width: 1100px) {
-    height: 100px;
     width: 50%;
     margin: 30px auto;
   }
@@ -28,6 +27,7 @@ const HeaderText = styled.h1`
   color: #0047ab;
   font-family: "Londrina Shadow", cursive;
   letter-spacing: 4px;
+  font-weight: 400;
   font-weight: 600;
   font-size: 34px;
 

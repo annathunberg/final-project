@@ -179,6 +179,7 @@ const ErrorText = styled.p`
   margin: 10px 0;
   color: #0047ab;
   text-align: center;
+  color: #0047ab;
   font-style: italic;
 `;
 
@@ -186,6 +187,7 @@ const SwitchPageLink = styled.a`
   position: absolute;
   bottom: 28px;
   font-size: 16px;
+  font-weight: 600;
   text-align: center;
   color: #0047ab;
   cursor: pointer;
