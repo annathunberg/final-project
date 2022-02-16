@@ -1,0 +1,8 @@
+{
+  "name": "final-project",
+  "description": "Final project",
+  "version": "1.0.0",
+  "engines": {
+    "node": "16.x"
+  }
+}

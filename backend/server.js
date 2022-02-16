@@ -4,6 +4,10 @@ import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 
+// 4lGFMeOMPAvvOVHQ
+// AnnaTbh
+// mongodb+srv://AnnaTbh:4lGFMeOMPAvvOVHQ@cluster0.r5yrp.mongodb.net/forum?retryWrites=true&w=majority
+
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/forum";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
