@@ -39,6 +39,10 @@ const ForumPostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  posterName: {
+    type: String,
+    required: true,
+  },
   createdAt: {
     type: Date,
     required: true,
@@ -47,15 +51,36 @@ const ForumPostSchema = new mongoose.Schema({
 
 const ForumPost = mongoose.model("ForumPost", ForumPostSchema);
 
-// Defines the port the app will run on. Defaults to 8080, but can be
-// overridden when starting the server. For example:
-//
-//   PORT=9000 npm start
+const CommentSchema = new mongoose.Schema({
+  message: {
+    type: String,
+    required: true,
+  },
+  userId: {
+    type: String,
+    required: true,
+  },
+  postId: {
+    type: String,
+    required: true,
+  },
+  posterName: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    required: true,
+  },
+});
+
+const Comment = mongoose.model("CommentSchema", CommentSchema);
+
 const port = process.env.PORT || 8080;
 const app = express();
 
-// Add middlewares to enable cors and json body parsing
-// v1 - Allow all domains
+// middlewares to enable cors and json body parsing
+
 app.use(cors());
 
 app.use(express.json());
@@ -80,25 +105,7 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-// Start defining your routes here
-
-app.get("/forumPosts", authenticateUser);
-app.get("/forumPosts", async (req, res) => {
-  const forumPosts = await ForumPost.find({});
-  res.status(201).json({ response: forumPosts, success: true });
-});
-
-app.post("/forumPosts", async (req, res) => {
-  const { message } = req.body;
-
-  try {
-    const newForumPost = await new ForumPost({ message }).save();
-    res.status(201).json({ response: newForumPost, success: true });
-  } catch (error) {
-    res.status(400).json({ response: error, success: false });
-  }
-});
-
+// Start routes here
 app.post("/signup", async (req, res) => {
   const { username, password } = req.body;
 
@@ -156,14 +163,32 @@ app.post("/signin", async (req, res) => {
 app.get("/posts", async (req, res) => {
   try {
     const posts = await ForumPost.find();
+    const comments = await Comment.find();
+
+    const postsWithComments = posts.map((post) => {
+      const postComments = comments.filter((comment) => {
+        return comment.postId === post._id.toString();
+      });
+
+      return {
+        _id: post._id,
+        title: post.title,
+        message: post.message,
+        userId: post.userId,
+        createdAt: post.createdAt,
+        posterName: post.posterName,
+        comments: postComments,
+      };
+    });
 
     res.status(201).json({
       response: {
-        posts,
+        posts: postsWithComments,
       },
       success: true,
     });
   } catch (error) {
+    console.error(error);
     res.status(400).json({ response: error, success: false });
   }
 });
@@ -172,10 +197,12 @@ app.post("/post/add", async (req, res) => {
   const { title, message, userId } = req.body;
 
   try {
+    const user = await User.findOne({ _id: userId });
     const post = await new ForumPost({
       message,
       title,
       userId,
+      posterName: user.username,
       createdAt: new Date(),
     }).save();
 
@@ -203,6 +230,31 @@ app.delete("/post/remove", async (req, res) => {
       success: true,
     });
   } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+});
+
+app.post("/comment/add", async (req, res) => {
+  const { message, userId, postId } = req.body;
+
+  try {
+    const user = await User.findOne({ _id: userId });
+    const comment = await new Comment({
+      message,
+      postId,
+      userId,
+      posterName: user.username,
+      createdAt: new Date(),
+    }).save();
+
+    res.status(201).json({
+      response: {
+        commentId: comment._id,
+      },
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
     res.status(400).json({ response: error, success: false });
   }
 });

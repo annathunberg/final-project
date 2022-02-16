@@ -68,7 +68,7 @@ export const LoginPage = () => {
             </div>
           ) : (
             <div className="sign-btn-container">
-              <ActionTitle>Create your account</ActionTitle>
+              <ActionTitle>Create an account</ActionTitle>
             </div>
           )}
         </BtnContainer>
@@ -105,7 +105,7 @@ export const LoginPage = () => {
           </SwitchPageLink>
         ) : (
           <SwitchPageLink onClick={() => setMode("signin")}>
-            Already have an account? Click here
+            Already have an account? Click here to login
           </SwitchPageLink>
         )}
       </MainContainer>
@@ -119,7 +119,7 @@ const MainContainer = styled.div`
   align-items: center;
   margin: 50px auto;
   background-color: #fafafa;
-  border-radius: 10px;
+  border-radius: 5px;
   width: 300px;
   height: 400px;
   position: relative;
@@ -137,7 +137,6 @@ const BtnContainer = styled.div`
 const FormContainer = styled.div`
   width: 80%;
   margin: 0;
-  /* border: 1px solid yellow; */
 `;
 
 const Form = styled.form`
@@ -152,14 +151,13 @@ const SubmitButton = styled.button`
   font-weight: 700;
   display: inline-block;
   background: #fce3e4;
-  padding: 5px 10px;
+  padding: 10px 10px;
   border-radius: 50px;
   color: #0047ab;
   text-decoration: none;
   text-transform: uppercase;
   border: 1px solid #0047ab;
   margin: 15px auto;
-  padding: 8px 0;
 `;
 
 const ActionTitle = styled.p`
@@ -177,8 +175,9 @@ const ActionTitle = styled.p`
 
 const ErrorText = styled.p`
   font-weight: 700;
-  font-size: 14px;
+  font-size: 12px;
   margin: 10px 0;
+  color: #0047ab;
   text-align: center;
   color: #0047ab;
   font-style: italic;
