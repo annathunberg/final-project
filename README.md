@@ -13,5 +13,7 @@ Backend:
 ## View it live
 
 Frontend:
+https://mental-health-club.netlify.app/
 
 Backend:
+https://mental-health-club.herokuapp.com/
